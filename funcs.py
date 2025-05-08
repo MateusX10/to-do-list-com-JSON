@@ -1,4 +1,4 @@
-def exibe_menu():
+def exibe_menu_principal():
     '''-> Função que exibe o menu principal do programa
        Parâmetros:
            :return: sem retorno
@@ -10,4 +10,15 @@ def exibe_menu():
     3 - Listar tarefas
     4 - Mover tarefa
     5 - Sair
+          ''')
+    
+
+
+def exibe_menu_tarefas():
+
+
+    print('''
+1 - Tarefas a fazer
+2 - Tarefas fazendo no momento
+3 - Tarefas feitas
           ''')
