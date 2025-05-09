@@ -96,7 +96,7 @@ while True:
 
             tarefa_a_ser_movida = int(input("Digite o número da tarefa que deseja mover: ")) - 1
 
-            if tarefa_a_ser_movida in range(1, len(lista_tarefas_extraidas) + 1):
+            if (tarefa_a_ser_movida + 1) in range(1, len(lista_tarefas_extraidas) + 1):
 
                 break
             print("\033[1;31mOpção inválida. Tente novamente com uma opção válida. \033[m")
