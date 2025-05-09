@@ -60,7 +60,49 @@ while True:
     # Usuário seleciona opção "2" = remover tarefa
     elif escolha_usuario == "2":
 
-        pass
+        lista_de_tarefas = ["tarefas a fazer.json", "tarefas fazendo no momento.json", "tarefas feitas"]
+
+        exibe_menu_tarefas()
+
+        while True:
+
+            escolha_usuario = str(input("Qual lista de tarefas deseja remover? ")).strip()
+
+            if escolha_usuario in ["1", "2", "3"]:
+
+                break
+
+            print("\033[1;31mOpção inválida. Tente novamente com uma opção válida. \033[m")
+
+        lista_de_tarefas_a_ter_o_item_removido = lista_de_tarefas[int(escolha_usuario) - 1]
+
+        with open(lista_de_tarefas_a_ter_o_item_removido, "r", encoding="utf-8") as arquivo:
+
+            lista_tarefas = json.load(arquivo)
+
+        for posicao, tarefa in enumerate(lista_tarefas):
+
+            print(f"{posicao + 1} - {tarefa}")
+
+        numero_da_tarefa_a_ser_removida = int(input("Número da tarefa a ser removida: ")) - 1
+
+        while True:
+
+            if (numero_da_tarefa_a_ser_removida + 1) in range(1, len(lista_tarefas) + 1):
+
+                break
+
+            print("\033[1;31mOpção inválida. Tente novamente com uma opção válida. \033[m")
+
+        lista_tarefas.pop(numero_da_tarefa_a_ser_removida)
+
+
+        with open(lista_de_tarefas_a_ter_o_item_removido, "w", encoding="utf-8") as arquivo:
+
+            json.dump(lista_tarefas, arquivo, ensure_ascii=False, indent=4)
+
+            
+
     
     # Usuário seleciona opção "3" = mover tarefa
     elif escolha_usuario == "3":
