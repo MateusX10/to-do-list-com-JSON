@@ -7,8 +7,8 @@ def exibe_menu_principal():
     print('''
     1 - Adicionar tarefa
     2 - Remover tarefa
-    3 - Listar tarefas
-    4 - Mover tarefa
+    3 - Mover tarefa
+    4 - Listar tarefas
     5 - Sair
           ''')
     

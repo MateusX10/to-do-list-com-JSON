@@ -7,6 +7,11 @@ opcoes_validas_menu = ["1", "2", "3", "4", "5"]
 
 
 
+with open("tarefas fazendo no momento.json", "a+", encoding="utf-8") as arquivo:
+
+    pass
+
+
 # loop principal do programa
 while True:
 
@@ -58,9 +63,87 @@ while True:
         pass
     
     # Usuário seleciona opção "3" = mover tarefa
-    elif escolha_usuario == "3:":
+    elif escolha_usuario == "3":
 
-        pass
+        lista_de_tarefas = ["tarefas a fazer.json", "tarefas fazendo no momento.json", "tarefas feitas.json"]
+        exibe_menu_tarefas()
+
+        while True:
+
+            escolha_usuario = str(input("Escolha qual lista de tarefas você deseja mover: ")).strip()
+
+            if escolha_usuario in ["1", "2", "3"]:
+
+                escolha_usuario = int(escolha_usuario) - 1
+
+                break
+
+            print("\033[1;31mOpção inválida. Tente novamente com uma opção válida. \033[m")
+
+
+        lista_tarefas = lista_de_tarefas[escolha_usuario]
+
+
+        with open(lista_tarefas, "r+", encoding="utf-8") as arquivo:
+
+            lista_tarefas_extraidas = json.load(arquivo)
+
+            for posicao, tarefa in enumerate(lista_tarefas_extraidas):
+
+                print(f"{posicao + 1} - {tarefa}")
+
+        while True:
+
+            tarefa_a_ser_movida = int(input("Digite o número da tarefa que deseja mover: ")) - 1
+
+            if tarefa_a_ser_movida in range(1, len(lista_tarefas_extraidas) + 1):
+
+                break
+            print("\033[1;31mOpção inválida. Tente novamente com uma opção válida. \033[m")
+
+        tarefa_a_ser_movida = lista_tarefas_extraidas[tarefa_a_ser_movida]
+
+        lista_tarefas_extraidas.remove(tarefa_a_ser_movida)
+
+        with open(lista_tarefas, "w", encoding="utf-8") as arquivo:
+            
+            json.dump(lista_tarefas_extraidas, arquivo, ensure_ascii=False, indent=4)
+
+        exibe_menu_tarefas()
+
+        while True:
+
+            escolha_usuario = str(input("Escolha para onde deseja mover a tarefa: ")).strip()
+
+            if escolha_usuario in ["1", "2", "3"]:
+
+                escolha_usuario = int(escolha_usuario) - 1
+
+                break
+
+            print("\033[1;31mOpção inválida. Tente novamente com uma opção válida. \033[m")
+        
+
+        destino_da_tarefa_a_ser_movida = lista_de_tarefas[escolha_usuario]
+
+
+        try:
+
+            with open(destino_da_tarefa_a_ser_movida, "r", encoding="utf-8") as arquivo:
+
+                lista_tarefas_destino = json.load(arquivo)
+
+
+        except (FileNotFoundError, json.JSONDecodeError):
+
+            lista_tarefas_destino = []
+
+
+        lista_tarefas_destino.append(tarefa_a_ser_movida)
+
+        with open(destino_da_tarefa_a_ser_movida, "w", encoding="utf-8") as arquivo:
+
+            json.dump(lista_tarefas_destino, arquivo, ensure_ascii=False, indent=4)
 
 
     # Usuário seleciona opção "4" = listar tarefas
@@ -86,7 +169,7 @@ while True:
 
         try:
 
-            with open("tarefas a fazer.json", "r", encoding="utf8") as arquivo:
+            with open(lista_de_tarefas_a_visualizar, "r", encoding="utf8") as arquivo:
                 
                 lista_tarefas = json.load(arquivo)
 
